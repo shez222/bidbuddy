@@ -72,18 +72,10 @@ export default function DashboardPage() {
       <div className="min-h-screen bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
         <Header />
         <main className="container mx-auto p-4 md:p-6 lg:p-8">
-          {/* Main Content */}
-          <div className="flex flex-col lg:flex-row lg:space-x-6">
-            {/* Left Side - Button and Bids List */}
-            <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-start mb-6 lg:mb-0 space-y-4">
-              {/* Center the Button */}
-              <div className="w-full flex justify-center lg:justify-center py-28 bg-slate-500">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="col-span-2 space-y-6">
+              <div className="flex flex-col items-center space-y-4 py-16 bg-slate-500 rounded-xl shadow-md">
                 <RealisticButton
-                  // label={
-                  //   autoBidding
-                  //     ? translations.auto_bidding_on || 'Auto On'
-                  //     : translations.auto_bidding_off || 'Auto Off'
-                  // }
                   onClick={toggleAutoBidding}
                   loading={loading}
                   icon={
@@ -106,29 +98,26 @@ export default function DashboardPage() {
                       ? "from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 dark:from-green-600 dark:to-green-800"
                       : "from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 dark:from-red-600 dark:to-red-800"
                   }`}
-                  size="lg" // Adjusted size for better visibility
+                  size="lg"
                 />
+                <p className="text-lg text-gray-700 dark:text-gray-300 text-center">
+                  {autoBidding
+                    ? translations.auto_bidding_enabled ||
+                      "Auto Bidding Enabled"
+                    : translations.auto_bidding_disabled ||
+                      "Auto Bidding Disabled"}
+                </p>
               </div>
-              <p className="text-lg text-gray-700 dark:text-gray-300 text-center ">
-                {autoBidding
-                  ? translations.auto_bidding_enabled || "Auto Bidding Enabled"
-                  : translations.auto_bidding_disabled ||
-                    "Auto Bidding Disabled"}
-              </p>
-              {/* Bids List */}
-              <div className="w-full">
-                <motion.div
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 md:p-6"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <BidsList />
-                </motion.div>
-              </div>
+              <motion.div
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6"
+                whileHover={{ scale: 1.02 }}
+              >
+                <BidsList />
+              </motion.div>
             </div>
 
             {/* Right Side - Graphs and Charts */}
-            <div className="w-full lg:w-2/5 flex flex-col space-y-6">
+            <div className="w-full  flex flex-col space-y-6">
               {/* Total Bids and Last 7 Days Bids in a Grid */}
               {/* Total Bids Graph */}
               <motion.div
