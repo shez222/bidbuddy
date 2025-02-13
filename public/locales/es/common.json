@@ -1,0 +1,20 @@
+{
+  "login": "Iniciar Sesión",
+  "username": "Nombre de Usuario",
+  "password": "Contraseña",
+  "rememberMe": "Recuérdame",
+  "forgotPassword": "¿Olvidaste tu contraseña?",
+  "signUp": "Regístrate",
+  "loggingIn": "Iniciando Sesión...",
+  "google": "Google",
+  "facebook": "Facebook",
+  "toggleTheme": "Cambiar Tema",
+  "enterUsername": "Ingresa tu nombre de usuario",
+  "enterPassword": "Ingresa tu contraseña",
+  "hidePassword": "Ocultar contraseña",
+  "showPassword": "Mostrar contraseña",
+  "googleLoginClicked": "Inicio de sesión con Google",
+  "facebookLoginClicked": "Inicio de sesión con Facebook",
+  "forgotPasswordClicked": "Olvidaste tu contraseña",
+  "signupClicked": "Registro realizado"
+}
