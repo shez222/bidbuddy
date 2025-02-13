@@ -1,17 +1,17 @@
 // app/dashboard/page.jsx
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Header from '@/components/Header';
-import Graph from '@/components/Graph';
-import BidStatusChart from '@/components/BidStatusChart';
-import BidsList from '@/components/BidsList';
-import RealisticButton from '@/components/RealisticButton';
-import { useTranslation } from '@/contexts/LanguageContext';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import { motion } from 'framer-motion';
-import { FaPlus } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import Header from "@/components/Header";
+import Graph from "@/components/Graph";
+import BidStatusChart from "@/components/BidStatusChart";
+import BidsList from "@/components/BidsList";
+import RealisticButton from "@/components/RealisticButton";
+import { useTranslation } from "@/contexts/LanguageContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import { motion } from "framer-motion";
+import { FaPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export default function DashboardPage() {
   const { translations } = useTranslation();
@@ -27,19 +27,21 @@ export default function DashboardPage() {
     // Implement actual auto-bidding toggle logic here (e.g., API call)
     toast.success(
       autoBidding
-        ? translations.auto_bidding_off_confirmation || 'Auto-Bidding has been turned off.'
-        : translations.auto_bidding_on_confirmation || 'Auto-Bidding has been turned on.'
+        ? translations.auto_bidding_off_confirmation ||
+            "Auto-Bidding has been turned off."
+        : translations.auto_bidding_on_confirmation ||
+            "Auto-Bidding has been turned on."
     );
   };
 
   // Mock data for Line Graphs
   const totalBidsData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     dataPoints: [120, 150, 170, 80, 200, 130, 160],
   };
 
   const last7DaysBidsData = {
-    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+    labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"],
     dataPoints: [10, 20, 15, 30, 25, 35, 40],
   };
 
@@ -62,12 +64,12 @@ export default function DashboardPage() {
 
   const isBidStatusDataValid =
     bidStatusData &&
-    typeof bidStatusData.failed === 'number' &&
-    typeof bidStatusData.passed === 'number';
+    typeof bidStatusData.failed === "number" &&
+    typeof bidStatusData.passed === "number";
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+      <div className=" bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
         <Header />
         <main className="container mx-auto p-4 md:p-6 lg:p-8">
           {/* Main Content */}
@@ -86,27 +88,36 @@ export default function DashboardPage() {
                   loading={loading}
                   icon={
                     autoBidding ? (
-                      <img src="/auto-on.svg" alt="Auto On" className="h-6 w-6" />
+                      <img
+                        src="/auto-on.svg"
+                        alt="Auto On"
+                        className="h-6 w-6"
+                      />
                     ) : (
-                      <img src="/auto-off.svg" alt="Auto Off" className="h-6 w-6" />
+                      <img
+                        src="/auto-off.svg"
+                        alt="Auto Off"
+                        className="h-6 w-6"
+                      />
                     )
                   }
                   className={`${
                     autoBidding
-                      ? 'from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 dark:from-green-600 dark:to-green-800'
-                      : 'from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 dark:from-red-600 dark:to-red-800'
+                      ? "from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 dark:from-green-600 dark:to-green-800"
+                      : "from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 dark:from-red-600 dark:to-red-800"
                   }`}
                   size="lg" // Adjusted size for better visibility
                 />
               </div>
               <p className="text-lg text-gray-700 dark:text-gray-300 text-center ">
                 {autoBidding
-                  ? translations.auto_bidding_enabled || 'Auto Bidding Enabled'
-                  : translations.auto_bidding_disabled || 'Auto Bidding Disabled'}
+                  ? translations.auto_bidding_enabled || "Auto Bidding Enabled"
+                  : translations.auto_bidding_disabled ||
+                    "Auto Bidding Disabled"}
               </p>
               {/* Bids List */}
               <div className="w-full">
-              <motion.div
+                <motion.div
                   className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 md:p-6"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
@@ -119,47 +130,51 @@ export default function DashboardPage() {
             {/* Right Side - Graphs and Charts */}
             <div className="w-full lg:w-2/5 flex flex-col space-y-6">
               {/* Total Bids and Last 7 Days Bids in a Grid */}
-                {/* Total Bids Graph */}
-                <motion.div
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 md:p-6"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-3 md:mb-4">
-                    {translations.total_bids || 'Total Bids'}
-                  </h2>
-                  {isTotalBidsDataValid ? (
-                    <Graph
-                      title="total_bids"
-                      labels={totalBidsData.labels}
-                      dataPoints={totalBidsData.dataPoints}
-                      color="indigo"
-                    />
-                  ) : (
-                    <p className="text-red-500">Invalid data for Total Bids Graph.</p>
-                  )}
-                </motion.div>
+              {/* Total Bids Graph */}
+              <motion.div
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 md:p-6"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-3 md:mb-4">
+                  {translations.total_bids || "Total Bids"}
+                </h2>
+                {isTotalBidsDataValid ? (
+                  <Graph
+                    title="total_bids"
+                    labels={totalBidsData.labels}
+                    dataPoints={totalBidsData.dataPoints}
+                    color="indigo"
+                  />
+                ) : (
+                  <p className="text-red-500">
+                    Invalid data for Total Bids Graph.
+                  </p>
+                )}
+              </motion.div>
 
-                {/* Last 7 Days Bids Graph */}
-                <motion.div
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 md:p-6"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-3 md:mb-4">
-                    {translations.last_7_days_bids || 'Last 7 Days Bids'}
-                  </h2>
-                  {isLast7DaysBidsDataValid ? (
-                    <Graph
-                      title="last_7_days_bids"
-                      labels={last7DaysBidsData.labels}
-                      dataPoints={last7DaysBidsData.dataPoints}
-                      color="green"
-                    />
-                  ) : (
-                    <p className="text-red-500">Invalid data for Last 7 Days Bids Graph.</p>
-                  )}
-                </motion.div>
+              {/* Last 7 Days Bids Graph */}
+              <motion.div
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 md:p-6"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-3 md:mb-4">
+                  {translations.last_7_days_bids || "Last 7 Days Bids"}
+                </h2>
+                {isLast7DaysBidsDataValid ? (
+                  <Graph
+                    title="last_7_days_bids"
+                    labels={last7DaysBidsData.labels}
+                    dataPoints={last7DaysBidsData.dataPoints}
+                    color="green"
+                  />
+                ) : (
+                  <p className="text-red-500">
+                    Invalid data for Last 7 Days Bids Graph.
+                  </p>
+                )}
+              </motion.div>
 
               {/* Bid Status Chart */}
               <motion.div
@@ -168,12 +183,14 @@ export default function DashboardPage() {
                 transition={{ duration: 0.3 }}
               >
                 <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-3 md:mb-4">
-                  {translations.bid_status || 'Bid Status'}
+                  {translations.bid_status || "Bid Status"}
                 </h2>
                 {isBidStatusDataValid ? (
                   <BidStatusChart data={bidStatusData} />
                 ) : (
-                  <p className="text-red-500">Invalid data for Bid Status Chart.</p>
+                  <p className="text-red-500">
+                    Invalid data for Bid Status Chart.
+                  </p>
                 )}
               </motion.div>
             </div>
@@ -190,7 +207,10 @@ export default function DashboardPage() {
               label="+"
               onClick={() => {
                 // Implement add new bid functionality
-                toast.info(translations.add_new_bid || 'Add new bid functionality coming soon!');
+                toast.info(
+                  translations.add_new_bid ||
+                    "Add new bid functionality coming soon!"
+                );
               }}
               icon={<FaPlus className="text-white h-4 w-4" />}
               className="from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 dark:from-blue-600 dark:to-blue-800"
@@ -202,17 +222,6 @@ export default function DashboardPage() {
     </ProtectedRoute>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // // app/dashboard/page.jsx
 // 'use client';
@@ -405,25 +414,6 @@ export default function DashboardPage() {
 //     </ProtectedRoute>
 //   );
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // app/dashboard/page.jsx
 // 'use client';
