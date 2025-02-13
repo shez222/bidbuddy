@@ -69,7 +69,7 @@ export default function DashboardPage() {
 
   return (
     <ProtectedRoute>
-      <div className=" bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+      <div className="min-h-screen bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
         <Header />
         <main className="container mx-auto p-4 md:p-6 lg:p-8">
           {/* Main Content */}
